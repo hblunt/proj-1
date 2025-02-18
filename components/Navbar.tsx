@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 
 const Navbar = () => {
   // Get session data using the useSession hook
@@ -18,17 +19,23 @@ const Navbar = () => {
         <div className="flex items-center gap-5">
           {status === "loading" ? (
             // Show loading state while session is being fetched
-            <span>Loading...</span>
+            <span className="text-gray-900 px-4 py-2 rounded-md">
+              Loading...
+            </span>
           ) : session ? (
             <>
               <Link href="/startup/create">
-                <span>Profile</span>
+                <span className="text-gray-900">Profile</span>
               </Link>
-              <button onClick={() => signOut()} className="hover:text-gray-600">
-                <span>Logout</span>
+              <button
+                type="submit"
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-4 py-2 rounded-md"
+              >
+                <span className="text-gray-900">Logout</span>
               </button>
               <Link href={`/user/${session?.user?.name}`}>
-                <span>{session?.user?.name}</span>
+                <span className="text-gray-900">{session?.user?.name}</span>
               </Link>
             </>
           ) : (
