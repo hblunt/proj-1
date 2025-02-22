@@ -187,7 +187,7 @@
   }
 
   .startup-card_date {
-    @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full group-hover:bg-white-100;
+    @apply font-medium text-[16px] bg-transparent px-4 py-2 rounded-full group-hover:bg-primary-100 duration-500;
   }
 
   .startup-card_desc {
@@ -273,6 +273,17 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
