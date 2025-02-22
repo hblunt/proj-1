@@ -2,16 +2,18 @@ import React from "react";
 import Ping from "./Ping";
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
+import { writeClient } from "@/sanity/lib/write-client";
+import { after } from "next/server";
 
 const View = async ({ id }: { id: string }) => {
   console.log("Fetching views for ID:", id);
+
+  after(async () => await writeClient.patch(id).inc({ views: 1 }).commit());
 
   try {
     const { views: totalViews } = await client
       .withConfig({ useCdn: false })
       .fetch(STARTUP_VIEWS_QUERY, { id });
-
-    // Modify number of views when post is seen
 
     return (
       <div className="view_container">

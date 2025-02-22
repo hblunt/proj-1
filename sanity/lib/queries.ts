@@ -48,6 +48,17 @@ export const STARTUP_VIEWS_QUERY =
   views
 }`);
 
+export const AUTHOR_BY_GITHUB_ID_QUERY =
+  defineQuery(`*[_type == "author" && ID == $id][0] {
+  _id,
+  id,
+  name,
+  email,
+  image,
+  username,
+  bio
+}`);
+
 // Keep the test function for future debugging if needed
 export async function testSanityConnection() {
   try {
